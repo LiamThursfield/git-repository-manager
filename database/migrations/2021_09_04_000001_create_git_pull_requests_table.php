@@ -35,7 +35,6 @@ class CreateGitPullRequestsTable extends Migration
                 ->references('id')
                 ->on('git_repositories')
                 ->onDelete('cascade');
-
         });
     }
 
