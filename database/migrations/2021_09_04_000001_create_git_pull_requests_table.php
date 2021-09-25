@@ -1,0 +1,50 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateGitPullRequestsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('git_pull_requests', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->string('git_repository_id')
+                ->constrained('git_repositories')
+                ->onDelete('cascade');
+            $table->string('title');
+            $table->string('branch_head');
+            $table->string('branch_base');
+            $table->string('state');
+            $table->string('html_url')->nullable();
+            $table->string('git_user_username');
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('git_repository_id')
+                ->references('id')
+                ->on('git_repositories')
+                ->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('git_pull_requests');
+    }
+}
