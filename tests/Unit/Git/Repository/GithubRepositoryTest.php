@@ -4,7 +4,9 @@ namespace Tests\Unit\Git\Repository;
 
 use App\Interfaces\GitInterface;
 use App\Transformers\Git\Repository\GithubRepositoryTransformer;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class GithubRepositoryTest extends TestCase
@@ -19,11 +21,11 @@ class GithubRepositoryTest extends TestCase
     /** @test */
     public function a_github_repository_webhook_can_be_transformed_to_a_repository_model()
     {
-        // Build the request body
-        $body = $this->getSampleGithubPullRequestWebhookBody();
+        // Mock the webhook and get the body data
+        $response = $this->mockGithubPullRequestWebhook()->json();
 
         // Transform the data
-        $transformer = new GithubRepositoryTransformer(Arr::get($body, 'repository'));
+        $transformer = new GithubRepositoryTransformer(Arr::get($response, 'repository'));
         $repository = $transformer->transform();
 
         // Assert model fields are correct
@@ -38,21 +40,27 @@ class GithubRepositoryTest extends TestCase
 
 
     /**
-     * Essentially mocks the request body from the Github Webhook for PullRequest
-     * Note: This is only the data required to create a repository
-     * @return array
+     * Mock the GitHub Webhook for a PullRequest
+     * Note: This is only the data required to create a repository - no Pull Request, User, etc. data
+     * @return Response
      */
-    protected function getSampleGithubPullRequestWebhookBody(): array
+    protected function mockGithubPullRequestWebhook(): Response
     {
-        return [
-            "repository" => [
-                "id"            => $this->repository_id,
-                "name"          => $this->repository_alias,
-                "full_name"     => $this->repository_name,
-                "private"       => $this->repository_private,
-                "html_url"      => $this->repository_html_url,
-                "description"   => "Description of the repo",
-            ]
-        ];
+        Http::fake([
+            '*' => Http::response(
+                [
+                    "repository" => [
+                        "id"            => $this->repository_id,
+                        "name"          => $this->repository_alias,
+                        "full_name"     => $this->repository_name,
+                        "private"       => $this->repository_private,
+                        "html_url"      => $this->repository_html_url,
+                        "description"   => "Description of the repo",
+                    ]
+                ]
+            )
+        ]);
+
+        return Http::post('/webhook/github');
     }
 }
