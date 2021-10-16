@@ -36,11 +36,11 @@ trait MocksGithubPullRequestWebhook
             '*' => Http::response(
                 [
                     'repository' => [
-                        'id'            => Arr::get($data_override, 'id', $this->repository_id),
-                        'name'          => Arr::get($data_override, 'alias', $this->repository_alias),
-                        'full_name'     => Arr::get($data_override, 'name', $this->repository_name),
-                        'private'       => Arr::get($data_override, 'private', $this->repository_private),
-                        'html_url'      => Arr::get($data_override, 'html_url', $this->repository_html_url),
+                        'id'            => Arr::get($data_override, 'repository.id', $this->repository_id),
+                        'name'          => Arr::get($data_override, 'repository.alias', $this->repository_alias),
+                        'full_name'     => Arr::get($data_override, 'repository.name', $this->repository_name),
+                        'private'       => Arr::get($data_override, 'repository.private', $this->repository_private),
+                        'html_url'      => Arr::get($data_override, 'repository.html_url', $this->repository_html_url),
                         'description'   => 'Description of the repo',
                     ]
                 ],
