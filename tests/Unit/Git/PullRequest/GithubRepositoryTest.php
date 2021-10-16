@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Git\Repository;
 
-use App\Interfaces\GitInterface;
+use App\Interfaces\Git\GitInterface;
 use App\Models\Git\Repository;
 use App\Transformers\Git\Repository\GithubRepositoryTransformer;
 use Illuminate\Foundation\Testing\RefreshDatabase;

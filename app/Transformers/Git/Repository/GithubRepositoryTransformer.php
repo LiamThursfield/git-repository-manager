@@ -2,7 +2,7 @@
 
 namespace App\Transformers\Git\Repository;
 
-use App\Interfaces\GitInterface;
+use App\Interfaces\Git\GitInterface;
 use Illuminate\Support\Arr;
 
 class GithubRepositoryTransformer extends AbstractRepositoryTransformer
