@@ -17,7 +17,7 @@ class GithubRepositoryTest extends TestCase
 
 
     /** @test */
-    public function a_github_repository_webhook_can_be_transformed_to_a_repository_model()
+    public function a_github_pull_request_webhook_can_be_transformed_to_a_repository_model()
     {
         // Mock the webhook and get the body data
         $response = $this->mockGithubPullRequestWebhook()->json();
@@ -37,7 +37,7 @@ class GithubRepositoryTest extends TestCase
 
 
     /** @test */
-    public function a_github_repository_webhook_can_create_a_repository()
+    public function a_github_pull_request_webhook_can_create_a_repository()
     {
         // Mock the webhook and get the body data
         $response = $this->mockGithubPullRequestWebhook()->json();
