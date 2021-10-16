@@ -63,7 +63,6 @@ class GithubRepositoryTest extends TestCase
                 'name'              => $this->repository_name,
             ]
         );
-
     }
 
 
