@@ -26,7 +26,7 @@ class GithubRepositoryTest extends TestCase
         $transformer = new GithubRepositoryTransformer(Arr::get($response, 'repository'));
         $repository = $transformer->transform();
 
-        // Assert model fields are correct
+        // Assert the model fields are correct
         self::assertEquals($this->repository_alias, $repository->alias);
         self::assertEquals(GitInterface::SERVICE_GITHUB, $repository->git_provider);
         self::assertEquals((string) $this->repository_id, $repository->git_provider_id);
