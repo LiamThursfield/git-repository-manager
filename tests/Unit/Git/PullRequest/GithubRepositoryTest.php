@@ -28,8 +28,8 @@ class GithubRepositoryTest extends TestCase
 
         // Assert the model fields are correct
         self::assertEquals($this->repository_alias, $repository->alias);
+        self::assertEquals((string) $this->repository_id, $repository->git_id);
         self::assertEquals(GitInterface::SERVICE_GITHUB, $repository->git_provider);
-        self::assertEquals((string) $this->repository_id, $repository->git_provider_id);
         self::assertEquals($this->repository_html_url, $repository->html_url);
         self::assertEquals($this->repository_private, $repository->is_private);
         self::assertEquals($this->repository_name, $repository->name);
@@ -51,10 +51,10 @@ class GithubRepositoryTest extends TestCase
         self::assertDatabaseHas(
             Repository::class,
             [
-                'alias'             => $this->repository_alias,
-                'git_provider'      => GitInterface::SERVICE_GITHUB,
-                'git_provider_id'   => $this->repository_id,
-                'name'              => $this->repository_name,
+                'alias'         => $this->repository_alias,
+                'git_id'        => $this->repository_id,
+                'git_provider'  => GitInterface::SERVICE_GITHUB,
+                'name'          => $this->repository_name,
             ]
         );
     }

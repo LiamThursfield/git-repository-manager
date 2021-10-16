@@ -13,14 +13,14 @@ class GithubRepositoryTransformer extends AbstractRepositoryTransformer
         return (string) Arr::get($this->raw_data, 'name');
     }
 
+    public function getGitId(): string
+    {
+        return (string) Arr::get($this->raw_data, 'id');
+    }
+
     public function getGitProvider(): string
     {
         return GitInterface::SERVICE_GITHUB;
-    }
-
-    public function getGitProviderId(): string
-    {
-        return (string) Arr::get($this->raw_data, 'id');
     }
 
     public function getHtmlUrl(): string

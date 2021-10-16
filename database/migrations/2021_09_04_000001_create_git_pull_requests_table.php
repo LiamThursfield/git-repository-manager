@@ -15,7 +15,7 @@ class CreateGitPullRequestsTable extends Migration
     {
         Schema::create('git_pull_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('git_provider_id');
+            $table->string('git_id');
             $table->foreignId('git_repository_id')
                 ->constrained('git_repositories')
                 ->onDelete('cascade');
@@ -32,7 +32,7 @@ class CreateGitPullRequestsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['git_repository_id', 'git_provider_id']);
+            $table->unique(['git_repository_id', 'git_id']);
         });
     }
 

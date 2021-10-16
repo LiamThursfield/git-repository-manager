@@ -15,16 +15,16 @@ class CreateGitRepositoriesTable extends Migration
     {
         Schema::create('git_repositories', function (Blueprint $table) {
             $table->id();
+            $table->string('git_id');
             $table->string('name');
             $table->string('alias')->nullable();
             $table->string('git_provider');
-            $table->string('git_provider_id');
             $table->boolean('is_private')->default(false);
             $table->string('html_url')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['git_provider', 'git_provider_id']);
+            $table->unique(['git_provider', 'git_id']);
         });
     }
 

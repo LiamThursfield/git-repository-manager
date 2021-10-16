@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
- * @property string $git_provider_id
+ * @property string $git_id
  * @property string $git_repository_id
  * @property string $title
  * @property string $branch_head

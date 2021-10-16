@@ -17,12 +17,12 @@ abstract class AbstractRepositoryTransformer
     public function transform(): Repository
     {
         return new Repository([
-            'alias'             => $this->getAlias(),
-            'git_provider'      => $this->getGitProvider(),
-            'git_provider_id'   => $this->getGitProviderId(),
-            'html_url'          => $this->getHtmlUrl(),
-            'is_private'        => $this->getIsPrivate(),
-            'name'              => $this->getName(),
+            'alias'         => $this->getAlias(),
+            'git_id'        => $this->getGitId(),
+            'git_provider'  => $this->getGitProvider(),
+            'html_url'      => $this->getHtmlUrl(),
+            'is_private'    => $this->getIsPrivate(),
+            'name'          => $this->getName(),
         ]);
     }
 
@@ -34,8 +34,8 @@ abstract class AbstractRepositoryTransformer
 
 
     abstract public function getAlias(): ?string;
+    abstract public function getGitId(): string;
     abstract public function getGitProvider(): string;
-    abstract public function getGitProviderId(): string;
     abstract public function getHtmlUrl(): string;
     abstract public function getIsPrivate(): bool;
     abstract public function getName(): string;
