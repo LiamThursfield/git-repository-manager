@@ -3,7 +3,9 @@
 namespace Tests\Unit\Git\Repository;
 
 use App\Interfaces\GitInterface;
+use App\Models\Git\Repository;
 use App\Transformers\Git\Repository\GithubRepositoryTransformer;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
@@ -11,6 +13,8 @@ use Tests\TestCase;
 
 class GithubRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+
     private string $repository_alias    = 'repository-name';
     private string $repository_html_url = 'https://github.com/Username/repository-name';
     private int|string $repository_id   = 123456789;
@@ -35,6 +39,27 @@ class GithubRepositoryTest extends TestCase
         self::assertEquals((string) $this->repository_id, $repository->id);
         self::assertEquals($this->repository_private, $repository->is_private);
         self::assertEquals($this->repository_name, $repository->name);
+    }
+
+
+    /** @test */
+    public function a_github_repository_webhook_can_create_a_repository()
+    {
+        // Mock the webhook and get the body data
+        $response = $this->mockGithubPullRequestWebhook()->json();
+
+        // Transform the data and save the model
+        $transformer = new GithubRepositoryTransformer(Arr::get($response, 'repository'));
+        $repository = $transformer->transform();
+        $repository->save();
+
+        // Assert the repository was saved
+        self::assertDatabaseHas(
+            Repository::class,
+            [
+                'id' =>$this->repository_id
+            ]
+        );
 
     }
 
@@ -42,20 +67,21 @@ class GithubRepositoryTest extends TestCase
     /**
      * Mock the GitHub Webhook for a PullRequest
      * Note: This is only the data required to create a repository - no Pull Request, User, etc. data
+     * @param array $data_override
      * @return Response
      */
-    protected function mockGithubPullRequestWebhook(): Response
+    protected function mockGithubPullRequestWebhook(array $data_override = []): Response
     {
         Http::fake([
             '*' => Http::response(
                 [
-                    "repository" => [
-                        "id"            => $this->repository_id,
-                        "name"          => $this->repository_alias,
-                        "full_name"     => $this->repository_name,
-                        "private"       => $this->repository_private,
-                        "html_url"      => $this->repository_html_url,
-                        "description"   => "Description of the repo",
+                    'repository' => [
+                        'id'            => Arr::get($data_override, 'id', $this->repository_id),
+                        'name'          => Arr::get($data_override, 'alias', $this->repository_alias),
+                        'full_name'     => Arr::get($data_override, 'name', $this->repository_name),
+                        'private'       => Arr::get($data_override, 'private', $this->repository_private),
+                        'html_url'      => Arr::get($data_override, 'html_url', $this->repository_html_url),
+                        'description'   => 'Description of the repo',
                     ]
                 ]
             )
