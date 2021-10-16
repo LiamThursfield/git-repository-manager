@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property string $id
+ * @property int $id
  * @property string $name
  * @property string $alias
  * @property string $git_provider
+ * @property string $git_provider_id
  * @property bool $is_private
  * @property string $html_url
  * @property Carbon $created_at

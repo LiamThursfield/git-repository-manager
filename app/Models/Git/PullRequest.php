@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property string $id
+ * @property int $id
+ * @property string $git_provider_id
  * @property string $git_repository_id
  * @property string $title
  * @property string $branch_head
