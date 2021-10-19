@@ -3,6 +3,8 @@
 namespace App\Models\Git;
 
 use Carbon\Carbon;
+use Database\Factories\GitRepositoryFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,6 +38,12 @@ class Repository extends Model
 
     public function pullRequests(): HasMany
     {
-        return $this->hasMany(PullRequest::class);
+        return $this->hasMany(PullRequest::class, 'git_repository_id');
+    }
+
+
+    protected static function newFactory(): Factory
+    {
+        return new GitRepositoryFactory();
     }
 }
