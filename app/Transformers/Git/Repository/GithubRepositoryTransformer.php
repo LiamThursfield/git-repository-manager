@@ -23,7 +23,7 @@ class GithubRepositoryTransformer extends AbstractRepositoryTransformer
         return GitInterface::SERVICE_GITHUB;
     }
 
-    public function getHtmlUrl(): string
+    public function getHtmlUrl(): ?string
     {
         return Arr::get($this->raw_data, 'html_url');
     }

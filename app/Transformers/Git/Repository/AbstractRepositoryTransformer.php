@@ -36,7 +36,7 @@ abstract class AbstractRepositoryTransformer
     abstract public function getAlias(): ?string;
     abstract public function getGitId(): string;
     abstract public function getGitProvider(): string;
-    abstract public function getHtmlUrl(): string;
+    abstract public function getHtmlUrl(): ?string;
     abstract public function getIsPrivate(): bool;
     abstract public function getName(): string;
 }
