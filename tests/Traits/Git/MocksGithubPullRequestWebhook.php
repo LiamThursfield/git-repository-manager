@@ -21,22 +21,15 @@ trait MocksGithubPullRequestWebhook
     private string $action = GithubInterface::WEBHOOK_PULL_REQUEST_ACTION_OPENED;
 
     /**
-     * Default base branch values
-     */
-    private string $base_ref = 'main';
-
-    /**
-     * Default head branch values
-     */
-    private string $head_ref = 'feature/branch-name';
-
-    /**
      * Default pull request values
      */
+    private string $pull_request_base_ref   = 'main';
+    private string $pull_request_head_ref   = 'feature/branch-name';
     private string $pull_request_html_url   = 'https://github.com/Username/repository-name/pull/1';
     private int|string $pull_request_id     = 987654321;
     private string $pull_request_state      = GithubInterface::PULL_REQUEST_STATE_OPEN;
     private string $pull_request_title      = 'A pull request title';
+    private string $pull_request_user_login = 'GitHubUser';
 
     /**
      * Default repository values
@@ -66,17 +59,20 @@ trait MocksGithubPullRequestWebhook
             '*' => Http::response(
                 [
                     'action'        => Arr::get($data_override, 'action', $this->action),
-                    'base'          => [
-                        'ref'   => Arr::get($data_override, 'base.ref', $this->base_ref),
-                    ],
-                    'head'          => [
-                        'ref'   => Arr::get($data_override, 'head.ref', $this->head_ref),
-                    ],
                     'pull_request'  => [
                         'html_url'  => Arr::get($data_override, 'pull_request.html_url', $this->pull_request_html_url),
                         'id'        => Arr::get($data_override, 'pull_request.id', $this->pull_request_id),
                         'state'     => Arr::get($data_override, 'pull_request.state', $this->pull_request_state),
                         'title'     => Arr::get($data_override, 'pull_request.title', $this->pull_request_title),
+                        'base'      => [
+                            'ref'   => Arr::get($data_override, 'pull_request_base.ref', $this->pull_request_base_ref),
+                        ],
+                        'head'      => [
+                            'ref'   => Arr::get($data_override, 'pull_request_head.ref', $this->pull_request_head_ref),
+                        ],
+                        'user'      => [
+                            'login' => Arr::get($data_override, 'pull_request.title', $this->pull_request_user_login),
+                        ],
                     ],
                     'repository'    => [
                         'description'   => Arr::get($data_override, 'repository.description', $this->repository_description),
