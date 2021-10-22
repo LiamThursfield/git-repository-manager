@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (!config('tvi.web.enabled')) {
+        if (!config('grm.web.enabled')) {
             return redirect(route('admin.index'));
         }
 

@@ -1,6 +1,6 @@
 {
-    "/js/app.js": "/js/app.js?id=32bef20de08ed87b4c33",
+    "/js/app.js": "/js/app.js?id=613d3b372c782c37a246",
     "/css/app.css": "/css/app.css?id=f11863c39603266764b4",
-    "/vendor/tinymce/skins/tvi/skin.min.css": "/vendor/tinymce/skins/tvi/skin.min.css?id=15f259ae93cc28cc227c",
-    "/vendor/tinymce/skins/tvi/content.min.css": "/vendor/tinymce/skins/tvi/content.min.css?id=82d50eba9f9d67a491ac"
+    "/vendor/tinymce/skins/grm/skin.min.css": "/vendor/tinymce/skins/grm/skin.min.css?id=15f259ae93cc28cc227c",
+    "/vendor/tinymce/skins/grm/content.min.css": "/vendor/tinymce/skins/grm/content.min.css?id=82d50eba9f9d67a491ac"
 }

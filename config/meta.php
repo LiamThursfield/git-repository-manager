@@ -2,9 +2,9 @@
 
 return [
     'admin' => [
-        'description' => "Laravel TVI - A CMS powered by Laravel, Tailwind, Vue, and Inertia",
+        'description' => "Git Repository Manager - Powered by Laravel, Tailwind, Vue, and Inertia",
         'title' => [
-            'Laravel TVI',
+            'Git Repository Manager',
             'Admin'
         ]
     ],
