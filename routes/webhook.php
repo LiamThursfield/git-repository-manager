@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('github', function () {
-
+// Website Routes
+Route::group([
+    'as'        => 'webhook.',
+], function() {
+    Route::post('github', function () {
+        return response([])->json();
+    })->name('github');
 });
