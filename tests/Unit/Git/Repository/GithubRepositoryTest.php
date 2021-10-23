@@ -8,12 +8,12 @@ use App\Transformers\Git\Repository\GithubRepositoryTransformer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
-use Tests\Traits\Git\MocksGithubPullRequestWebhook;
+use Tests\Traits\Git\BuildsGithubPullRequestWebhook;
 
 class GithubRepositoryTest extends TestCase
 {
     use RefreshDatabase;
-    use MocksGithubPullRequestWebhook;
+    use BuildsGithubPullRequestWebhook;
 
 
     /** @test */
