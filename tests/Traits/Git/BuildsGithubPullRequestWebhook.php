@@ -83,6 +83,23 @@ trait BuildsGithubPullRequestWebhook
 
 
     /**
+     * Fake the inbound GitHub Webhook request for a PullRequest
+     * @param array $data_override
+     * @param array $headers_override
+     * @return Response
+     */
+    protected function receiveGithubPullRequestWebhook(array $data_override = [], array $headers_override = []): Response
+    {
+        return Http::withHeaders(
+            $this->buildGithubPullRequestHeaders($headers_override)
+        )->post(
+            route('webhook.github'),
+            $this->buildGithubPullRequestData($data_override)
+        );
+    }
+
+
+    /**
      * Mock the GitHub Webhook request for a PullRequest
      * This is outbound from GitHub, not inbound to this app's webhook route
      * @param array $data_override
