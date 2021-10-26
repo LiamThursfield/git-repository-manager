@@ -40,4 +40,19 @@ class GitHubPullRequestTest extends TestCase
         );
     }
 
+
+    /** @test */
+    public function a_github_pull_request_opened_webhook_request_wont_create_a_repository_if_not_needed()
+    {
+        Repository::create([
+            'git_id'        => $this->repository_id,
+            'git_provider'  => GitInterface::SERVICE_GITHUB,
+            'name'          => $this->repository_name,
+        ]);
+
+        $this->receiveGithubPullRequestWebhook();
+
+        $this->assertDatabaseCount(Repository::class, 1);
+    }
+
 }
