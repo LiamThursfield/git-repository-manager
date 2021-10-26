@@ -27,7 +27,7 @@ class GitHubPullRequestTest extends TestCase
     /**
      * @test
      */
-    public function a_github_pull_request_opened_webhook_request_creates_a_repository_if_needed()
+    public function a_github_pull_request_webhook_request_creates_a_repository_if_needed()
     {
         $this->receiveGithubPullRequestWebhook();
 
@@ -43,7 +43,7 @@ class GitHubPullRequestTest extends TestCase
 
 
     /** @test */
-    public function a_github_pull_request_opened_webhook_request_wont_create_a_repository_if_not_needed()
+    public function a_github_pull_request_webhook_request_wont_create_a_repository_if_not_needed()
     {
         Repository::create([
             'git_id'        => $this->repository_id,
