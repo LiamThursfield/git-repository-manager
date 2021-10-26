@@ -2,6 +2,7 @@
 
 namespace App\Models\Git;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Database\Factories\GitPullRequestFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -37,6 +38,11 @@ class PullRequest extends Model
     public function repository(): BelongsTo
     {
         return $this->belongsTo(Repository::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
 
