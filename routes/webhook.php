@@ -7,6 +7,8 @@ Route::group([
     'as'        => 'webhook.',
 ], function() {
     Route::post('github', function () {
-        return response([])->json();
+        return response([
+            'message' => 'Success'
+        ]);
     })->name('github');
 });
