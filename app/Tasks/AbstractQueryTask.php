@@ -53,6 +53,10 @@ abstract class AbstractQueryTask
         if (Arr::get($this->search_options, 'with')) {
             $this->query->with(Arr::get($this->search_options, 'with'));
         }
+
+        if (Arr::get($this->search_options, 'with_count')) {
+            $this->query->withCount(Arr::get($this->search_options, 'with_count'));
+        }
     }
 
 
