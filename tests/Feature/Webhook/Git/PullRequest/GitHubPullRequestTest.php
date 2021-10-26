@@ -3,6 +3,7 @@
 namespace Tests\Feature\Webhook\Git\PullRequest;
 
 use App\Interfaces\Git\GitInterface;
+use App\Models\Git\PullRequest;
 use App\Models\Git\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -53,6 +54,28 @@ class GitHubPullRequestTest extends TestCase
         $this->receiveGithubPullRequestWebhook();
 
         $this->assertDatabaseCount(Repository::class, 1);
+    }
+
+
+    /**
+     * @test
+     */
+    public function a_github_pull_request_opened_webhook_request_creates_a_pull_request_if_needed()
+    {
+        $this->receiveGithubPullRequestWebhook();
+
+        $repository = Repository::where([
+            'git_id'        => $this->repository_id,
+            'git_provider'  => GitInterface::SERVICE_GITHUB,
+        ])->first();
+
+        $this->assertDatabaseHas(
+            PullRequest::class,
+            [
+                'git_id'            => $this->pull_request_id,
+                'git_repository_id' => $repository->id,
+            ]
+        );
     }
 
 }

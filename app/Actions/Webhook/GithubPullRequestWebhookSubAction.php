@@ -3,8 +3,9 @@
 namespace App\Actions\Webhook;
 
 use App\Http\Requests\Webhook\GithubWebhookRequest;
-use App\Interfaces\Git\GithubInterface;
+use App\Models\Git\PullRequest;
 use App\Models\Git\Repository;
+use App\Transformers\Git\PullRequest\GithubPullRequestTransformer;
 use App\Transformers\Git\Repository\GithubRepositoryTransformer;
 use Exception;
 use Illuminate\Support\Arr;
@@ -26,14 +27,33 @@ class GithubPullRequestWebhookSubAction
         $this->validateRequest();
 
         $repository = $this->findOrCreateRepository();
+        $pull_request = $this->findOrCreatePullRequest($repository);
 
         return 'Success';
     }
 
 
+    protected function findOrCreatePullRequest(Repository $repository): PullRequest
+    {
+        $transformer = new GithubPullRequestTransformer(Arr::get($this->request, 'pull_request'));
+        $pull_request = $transformer->transform();
+
+        return PullRequest::firstOrCreate(
+            [
+                'git_id' => $pull_request->git_id,
+                'git_repository_id' => $repository->id
+            ],
+            array_merge(
+                ['git_repository_id' => $repository->id],
+                $pull_request->toArray()
+            )
+        );
+    }
+
+
     protected function findOrCreateRepository(): Repository
     {
-        $transformer = new GithubRepositoryTransformer(Arr::get(request(), 'repository'));
+        $transformer = new GithubRepositoryTransformer(Arr::get($this->request, 'repository'));
         $repository = $transformer->transform();
 
         return Repository::firstOrCreate(
