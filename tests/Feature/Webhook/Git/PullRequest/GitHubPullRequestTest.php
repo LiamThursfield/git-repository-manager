@@ -61,7 +61,7 @@ class GitHubPullRequestTest extends TestCase
     /**
      * @test
      */
-    public function a_github_pull_request_opened_webhook_request_creates_a_pull_request_if_needed()
+    public function a_github_pull_request_webhook_request_creates_a_pull_request_if_needed()
     {
         $this->receiveGithubPullRequestWebhook();
 
