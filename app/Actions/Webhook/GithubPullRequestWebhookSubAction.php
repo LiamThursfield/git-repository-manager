@@ -5,6 +5,7 @@ namespace App\Actions\Webhook;
 use App\Http\Requests\Webhook\GithubWebhookRequest;
 use App\Models\Git\PullRequest;
 use App\Models\Git\Repository;
+use App\Models\User;
 use App\Transformers\Git\PullRequest\GithubPullRequestTransformer;
 use App\Transformers\Git\Repository\GithubRepositoryTransformer;
 use Exception;
@@ -29,7 +30,29 @@ class GithubPullRequestWebhookSubAction
         $repository = $this->findOrCreateRepository();
         $pull_request = $this->findOrCreatePullRequest($repository);
 
+        if (is_null($pull_request->user_id)) {
+            $user = $this->attemptToAttachUserToPullRequest($pull_request);
+        }
+
         return 'Success';
+    }
+
+
+    protected function attemptToAttachUserToPullRequest(PullRequest $pull_request): ?User
+    {
+        if (is_null($pull_request->git_user_username)) {
+            return null;
+        }
+
+        $user = User::where('github_username', $pull_request->git_user_username)->first();
+        if (is_null($user)) {
+            return null;
+        }
+
+        $pull_request->user_id = $user->id;
+        $pull_request->save();
+
+        return $user;
     }
 
 

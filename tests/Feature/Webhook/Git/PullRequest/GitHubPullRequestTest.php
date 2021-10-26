@@ -6,6 +6,7 @@ use App\Interfaces\Git\GithubInterface;
 use App\Interfaces\Git\GitInterface;
 use App\Models\Git\PullRequest;
 use App\Models\Git\Repository;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\Git\BuildsGithubPullRequestWebhook;
@@ -98,6 +99,26 @@ class GitHubPullRequestTest extends TestCase
         ]);
 
         $this->assertDatabaseCount(PullRequest::class, 1);
+    }
+
+
+    /**
+     * @test
+     */
+    public function a_github_pull_request_webhook_request_attaches_a_user_if_possible()
+    {
+        // Ensure there is a user with the GitHub username matching the webhook data
+        $user = User::factory()->create(['github_username' => $this->pull_request_user_login]);
+
+        $this->receiveGithubPullRequestWebhook();
+
+        $this->assertDatabaseHas(
+            PullRequest::class,
+            [
+                'git_id'            => $this->pull_request_id,
+                'user_id'           => $user->id,
+            ]
+        );
     }
 
 }
