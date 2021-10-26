@@ -23,13 +23,11 @@ interface GithubInterface
     /**
      * Webhook - Header - Events
      */
-    const WEBHOOK_HEADER_EVENT_CREATE       = 'create';
-    const WEBHOOK_HEADER_EVENT_PULL_REQUEST = 'pull_request';
-    const WEBHOOK_HEADER_EVENT_PUSH         = 'push';
-    const WEBHOOK_HEADER_EVENTS             = [
-        self::WEBHOOK_HEADER_EVENT_CREATE,
+    const WEBHOOK_HEADER_EVENT_PULL_REQUEST         = 'pull_request';
+    const WEBHOOK_HEADER_EVENT_PULL_REQUEST_REVIEW  = 'pull_request_review';
+    const WEBHOOK_HEADER_EVENTS                     = [
         self::WEBHOOK_HEADER_EVENT_PULL_REQUEST,
-        self::WEBHOOK_HEADER_EVENT_PUSH,
+        self::WEBHOOK_HEADER_EVENT_PULL_REQUEST_REVIEW,
     ];
 
 
