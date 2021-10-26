@@ -5,6 +5,13 @@ namespace App\Interfaces\Git;
 interface GithubInterface
 {
     /**
+     * Webhook - Header - Keys
+     */
+    const WEBHOOK_HEADER_KEY_EVENT          = 'x-github-event';
+    const WEBHOOK_HEADER_KEY_TARGET_TYPE    = 'x-github-hook-installation-target-type';
+
+
+    /**
      * Webhook - Header - Installation Target Types
      */
     const WEBHOOK_HEADER_INSTALLATION_TARGET_TYPE_REPOSITORY    = 'repository';
@@ -19,7 +26,7 @@ interface GithubInterface
     const WEBHOOK_HEADER_EVENT_CREATE       = 'create';
     const WEBHOOK_HEADER_EVENT_PULL_REQUEST = 'pull_request';
     const WEBHOOK_HEADER_EVENT_PUSH         = 'push';
-    const WEBHOOK_HEADER_EVENT              = [
+    const WEBHOOK_HEADER_EVENTS             = [
         self::WEBHOOK_HEADER_EVENT_CREATE,
         self::WEBHOOK_HEADER_EVENT_PULL_REQUEST,
         self::WEBHOOK_HEADER_EVENT_PUSH,

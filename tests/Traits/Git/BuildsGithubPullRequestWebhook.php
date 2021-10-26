@@ -77,8 +77,8 @@ trait BuildsGithubPullRequestWebhook
     protected function buildGithubPullRequestHeaders(array $headers_override = []): array
     {
         return [
-            'x-github-hook-installation-target-type' => Arr::get($headers_override, 'installation_target_type', $this->header_installation_target_type),
-            'x-github-hook-event' => Arr::get($headers_override, 'event', $this->header_event),
+            GithubInterface::WEBHOOK_HEADER_KEY_TARGET_TYPE => Arr::get($headers_override, 'installation_target_type', $this->header_installation_target_type),
+            GithubInterface::WEBHOOK_HEADER_KEY_EVENT => Arr::get($headers_override, 'event', $this->header_event),
         ];
     }
 
