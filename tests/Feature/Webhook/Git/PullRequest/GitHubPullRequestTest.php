@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Webhook\Git\PullRequest;
 
+use App\Interfaces\Git\GithubInterface;
 use App\Interfaces\Git\GitInterface;
 use App\Models\Git\PullRequest;
 use App\Models\Git\Repository;
@@ -76,6 +77,27 @@ class GitHubPullRequestTest extends TestCase
                 'git_repository_id' => $repository->id,
             ]
         );
+    }
+
+
+    /** @test */
+    public function a_github_pull_request_webhook_request_wont_create_a_pull_request_if_not_needed()
+    {
+        // Receive a webhook for a closed pull request
+        $this->receiveGithubPullRequestWebhook([
+            'pull_request' => [
+                'state' => GithubInterface::PULL_REQUEST_STATE_CLOSED
+            ]
+        ]);
+
+        // Receive a webhook for the same pull request, but now open
+        $this->receiveGithubPullRequestWebhook([
+            'pull_request' => [
+                'state' => GithubInterface::PULL_REQUEST_STATE_CLOSED
+            ]
+        ]);
+
+        $this->assertDatabaseCount(PullRequest::class, 1);
     }
 
 }
