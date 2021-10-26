@@ -47,10 +47,11 @@ interface GithubInterface
     /**
      * Pull Request - States
      */
-    const PULL_REQUEST_STATE_CLOSED = 'CLOSED';
-    const PULL_REQUEST_STATE_OPEN   = 'OPEN';
-    const PULL_REQUEST_STATES       = [
-        self::PULL_REQUEST_STATE_CLOSED,
-        self::PULL_REQUEST_STATE_OPEN,
+    const PULL_REQUEST_STATE_CLOSED     = 'closed';
+    const PULL_REQUEST_STATE_OPEN       = 'open';
+    // Map the GitHub states to the generic interface states
+    const PULL_REQUEST_MAPPED_STATES    = [
+        self::PULL_REQUEST_STATE_CLOSED => GitInterface::PULL_REQUEST_STATE_CLOSED,
+        self::PULL_REQUEST_STATE_OPEN   => GitInterface::PULL_REQUEST_STATE_OPEN,
     ];
 }
