@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property int $id
  * @property string $git_id
- * @property string $git_repository_id
+ * @property int $git_repository_id
  * @property string $title
  * @property string $branch_head
  * @property string $branch_base
@@ -36,7 +36,7 @@ class PullRequest extends Model
 
     public function repository(): BelongsTo
     {
-        return $this->belongsTo(Repository::class, 'git_repository_id');
+        return $this->belongsTo(Repository::class);
     }
 
 
