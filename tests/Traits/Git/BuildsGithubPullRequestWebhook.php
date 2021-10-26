@@ -6,6 +6,7 @@ use App\Interfaces\Git\GithubInterface;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Testing\TestResponse;
 
 trait BuildsGithubPullRequestWebhook
 {
@@ -86,15 +87,14 @@ trait BuildsGithubPullRequestWebhook
      * Fake the inbound GitHub Webhook request for a PullRequest
      * @param array $data_override
      * @param array $headers_override
-     * @return Response
+     * @return TestResponse
      */
-    protected function receiveGithubPullRequestWebhook(array $data_override = [], array $headers_override = []): Response
+    protected function receiveGithubPullRequestWebhook(array $data_override = [], array $headers_override = []): TestResponse
     {
-        return Http::withHeaders(
-            $this->buildGithubPullRequestHeaders($headers_override)
-        )->post(
+        return $this->post(
             route('webhook.github'),
-            $this->buildGithubPullRequestData($data_override)
+            $this->buildGithubPullRequestData($data_override),
+            $this->buildGithubPullRequestHeaders($headers_override)
         );
     }
 
