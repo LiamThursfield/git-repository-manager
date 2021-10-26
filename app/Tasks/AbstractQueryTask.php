@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Actions;
+namespace App\Tasks;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
-abstract class AbstractQueryAction
+abstract class AbstractQueryTask
 {
     protected Builder $query;
     protected array $search_options;

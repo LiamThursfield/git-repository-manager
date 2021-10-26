@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Actions\User\UserQueryAction;
 use App\Actions\User\UserStoreAction;
 use App\Actions\User\UserUpdateAction;
 use App\Http\Controllers\AdminController;
@@ -13,6 +12,7 @@ use App\Http\Resources\Admin\User\UserEditResource;
 use App\Interfaces\AppInterface;
 use App\Interfaces\PermissionInterface;
 use App\Models\User;
+use App\Tasks\User\UserQueryTask;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,7 +96,7 @@ class UserController extends AdminController
         return Inertia::render('admin/user/Index', [
             'searchOptions' => $search_options,
             'users' => function () use ($search_options) {
-                return app(UserQueryAction::class)->handle($search_options)
+                return app(UserQueryTask::class)->handle($search_options)
                     ->paginate(AppInterface::getSearchPaginationParam($search_options));
             }
         ]);

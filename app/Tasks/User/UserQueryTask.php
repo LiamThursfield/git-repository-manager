@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Actions\User;
+namespace App\Tasks\User;
 
-use App\Actions\AbstractQueryAction;
+use App\Tasks\AbstractQueryTask;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
-class UserQueryAction extends AbstractQueryAction
+class UserQueryTask extends AbstractQueryTask
 {
     protected array $searchable_fields_likes = [
         'email'             => 'user_email',
