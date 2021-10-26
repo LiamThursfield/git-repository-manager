@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Webhook\Git\PullRequest;
 
+use App\Interfaces\Git\GitInterface;
+use App\Models\Git\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\Git\BuildsGithubPullRequestWebhook;
@@ -21,5 +23,21 @@ class GitHubPullRequestTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @test
+     */
+    public function a_github_pull_request_opened_webhook_request_creates_a_repository_if_needed()
+    {
+        $this->receiveGithubPullRequestWebhook();
+
+        $this->assertDatabaseHas(
+            Repository::class,
+            [
+                'git_id'        => $this->repository_id,
+                'git_provider'  => GitInterface::SERVICE_GITHUB,
+                'name'          => $this->repository_name,
+            ]
+        );
+    }
 
 }
