@@ -14,7 +14,7 @@ class GitHubPullRequestTest extends TestCase
     /**
      * @test
      */
-    public function a_github_webhook_request_can_be_accepted() {
+    public function a_github_pull_request_webhook_request_can_be_accepted() {
         $response = $this->receiveGithubPullRequestWebhook();
         $response->assertStatus(200);
     }

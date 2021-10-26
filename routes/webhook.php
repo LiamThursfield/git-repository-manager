@@ -1,14 +1,11 @@
 <?php
 
+use App\Http\Controllers\Webhook\GithubWebhookController;
 use Illuminate\Support\Facades\Route;
 
 // Website Routes
 Route::group([
     'as'        => 'webhook.',
 ], function() {
-    Route::post('github', function () {
-        return response([
-            'message' => 'Success'
-        ]);
-    })->name('github');
+    Route::post('github', GithubWebhookController::class)->name('github');
 });
