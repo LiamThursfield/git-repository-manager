@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Interfaces\PermissionInterface;
 use App\Interfaces\RoleInterface;
+use App\Models\Git\PullRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -100,5 +102,11 @@ class User extends Authenticatable
         }
 
         return $permissions_array;
+    }
+
+
+    public function pullRequests(): HasMany
+    {
+        return $this->hasMany(PullRequest::class);
     }
 }
