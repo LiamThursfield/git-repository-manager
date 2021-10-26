@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Interfaces\Git\GitInterface;
 use App\Interfaces\PermissionInterface;
 use App\Interfaces\RoleInterface;
 use App\Models\Git\PullRequest;
@@ -108,5 +109,10 @@ class User extends Authenticatable
     public function pullRequests(): HasMany
     {
         return $this->hasMany(PullRequest::class);
+    }
+
+    public function openPullRequests(): HasMany
+    {
+        return $this->hasMany(PullRequest::class)->where('state', GitInterface::PULL_REQUEST_STATE_OPEN);
     }
 }

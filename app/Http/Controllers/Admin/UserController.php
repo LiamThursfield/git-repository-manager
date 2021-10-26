@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use function JmesPath\search;
 
 class UserController extends AdminController
 {
@@ -91,6 +92,7 @@ class UserController extends AdminController
     public function index(UserIndexRequest $request) : Response
     {
         $search_options = $request->validated();
+        $search_options['with_count'] = ['pullRequests', 'openPullRequests'];
 
         $this->shareMeta();
         return Inertia::render('admin/user/Index', [

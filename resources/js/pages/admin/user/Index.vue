@@ -122,6 +122,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>GitHub Username</th>
+                                <th>Pull Requests</th>
                                 <th v-if="show_users_actions"></th>
                             </tr>
                         </thead>
@@ -138,6 +139,25 @@
                                 </td>
                                 <td>
                                     {{ user.github_username ? user.github_username : '-' }}
+                                </td>
+                                <td>
+                                    <template v-if="!user.pull_requests_count || !user.hasOwnProperty('open_pull_requests_count')">
+                                        -
+                                    </template>
+
+                                    <inertia-link
+                                        v-else
+                                        :href="`/git/pull-requests?user_id=${user.id}`"
+                                        class="hover:underline"
+                                    >
+                                        {{ user.open_pull_requests_count }}
+
+                                        <span
+                                            class="text-sm text-theme-base-subtle-contrast"
+                                        >
+                                            ({{ user.pull_requests_count }})
+                                        </span>
+                                    </inertia-link>
                                 </td>
                                 <td v-if="show_users_actions">
                                     <div class="flex flex-row items-center justify-end -mx-1">
