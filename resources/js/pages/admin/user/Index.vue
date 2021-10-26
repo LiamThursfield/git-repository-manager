@@ -147,7 +147,7 @@
 
                                     <inertia-link
                                         v-else
-                                        :href="`/git/pull-requests?user_id=${user.id}`"
+                                        href="#TODO:AddRouteWhenCreated"
                                         class="hover:underline"
                                     >
                                         {{ user.open_pull_requests_count }}
