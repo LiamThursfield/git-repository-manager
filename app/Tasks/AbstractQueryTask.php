@@ -63,13 +63,13 @@ abstract class AbstractQueryTask
     protected function addStandardSearchOptions()
     {
         foreach ($this->searchable_fields_equals as $field => $value) {
-            if (Arr::get($this->search_options, $value) || strlen(Arr::get($this->search_options, $value))) {
+            if ($this->isSearchOptionsValueSet($value)) {
                 $this->query->where($field, Arr::get($this->search_options, $value));
             }
         }
 
         foreach ($this->searchable_fields_likes as $field => $value) {
-            if (Arr::get($this->search_options, $value) || strlen(Arr::get($this->search_options, $value))) {
+            if ($this->isSearchOptionsValueSet($value)) {
                 $this->query->where(
                     $field,
                     'like',
@@ -77,6 +77,19 @@ abstract class AbstractQueryTask
                 );
             }
         }
+    }
+
+    /**
+     * A value is classified as "set" if it isn't null or and empty string
+     * i.e. is a non-empty string, a number, or a boolean
+     */
+    protected function isSearchOptionsValueSet(mixed $value): bool
+    {
+        return (
+            Arr::get($this->search_options, $value) ||
+            strlen(Arr::get($this->search_options, $value)) ||
+            is_bool(Arr::get($this->search_options, $value))
+        );
     }
 
 
