@@ -4,7 +4,9 @@ namespace App\Interfaces\Git;
 
 interface GitInterface
 {
+    const SERVICE_BITBUCKET = 'Bitbucket';
     const SERVICE_GITHUB = 'GitHub';
+    const SERVICE_GITLAB = 'GitLab';
 
     const SERVICES = [
         self::SERVICE_GITHUB,
