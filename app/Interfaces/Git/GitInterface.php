@@ -9,7 +9,9 @@ interface GitInterface
     const SERVICE_GITLAB    = 'GitLab';
 
     const SERVICES = [
+        self::SERVICE_BITBUCKET,
         self::SERVICE_GITHUB,
+        self::SERVICE_GITLAB,
     ];
 
 
