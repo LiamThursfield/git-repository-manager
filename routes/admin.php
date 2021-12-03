@@ -32,6 +32,13 @@ Route::group([
 
 Route::resource('users', UserController::class);
 
+Route::group([
+    'as' => 'git.',
+    'prefix' => 'git'
+], function() {
+    Route::resource('repositories', \App\Http\Controllers\Admin\Git\RepositoryController::class)->only(['show', 'index']);
+});
+
 /** Fallback admin route - ensures Auth() calls work as expected in the exception handler */
 Route::fallback(function () {
     abort(404);

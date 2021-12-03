@@ -97,6 +97,23 @@
                         requiresAnyPermissions: [],
                         showLabel: false,
                     },
+                    git: {
+                        children : {
+                            repositories: {
+                                activeRoutes: ["admin.git.repositories.index", "admin.git.repositories.show"],
+                                children: false,
+                                icon: "icon-sitemap",
+                                label: "View Repositories",
+                                requiresAllPermissions: ["repositories.view"],
+                                requiresAnyPermissions: [],
+                                route: "admin.git.repositories.index",
+                            }
+                        },
+                        label: "Git",
+                        requiresAllPermissions: [],
+                        requiresAnyPermissions: ["repositories.view"],
+                        showLabel: true,
+                    },
                     settings: {
                         children : {
                             users: {
