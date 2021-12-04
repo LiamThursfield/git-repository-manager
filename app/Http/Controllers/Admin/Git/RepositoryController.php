@@ -29,6 +29,21 @@ class RepositoryController extends AdminController
         )->only(['index', 'show']);
     }
 
+    public function edit(Repository $repository): Response
+    {
+        $this->addMetaTitleSection('Edit - ' . $repository->human_readable_name);
+        $this->shareMeta();
+
+        return Inertia::render('admin/git/repository/EditShow', [
+            'isEdit'        => true,
+            'repository'    => function () use ($repository) {
+                RepositoryResource::withoutWrapping();
+                return RepositoryResource::make($repository);
+            },
+        ]);
+    }
+
+
     public function index(RepositoryIndexRequest $request): Response
     {
         $search_options = $request->validated();
@@ -45,6 +60,21 @@ class RepositoryController extends AdminController
                 );
             },
             'searchOptions' => $search_options,
+        ]);
+    }
+
+
+    public function show(Repository $repository): Response
+    {
+        $this->addMetaTitleSection($repository->human_readable_name);
+        $this->shareMeta();
+
+        return Inertia::render('admin/git/repository/EditShow', [
+            'isEdit'        => false,
+            'repository'    => function () use ($repository) {
+                RepositoryResource::withoutWrapping();
+                return RepositoryResource::make($repository);
+            },
         ]);
     }
 }
