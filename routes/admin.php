@@ -36,7 +36,7 @@ Route::group([
     'as' => 'git.',
     'prefix' => 'git'
 ], function() {
-    Route::resource('repositories', \App\Http\Controllers\Admin\Git\RepositoryController::class)->only(['show', 'index']);
+    Route::resource('repositories', \App\Http\Controllers\Admin\Git\RepositoryController::class)->only(['index', 'show', 'edit', 'update']);
 });
 
 /** Fallback admin route - ensures Auth() calls work as expected in the exception handler */
