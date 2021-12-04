@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $alias
  * @property string $git_provider
+ * @property string $human_readable_name
  * @property bool $is_private
  * @property string $html_url
  * @property Carbon $created_at
@@ -34,6 +35,12 @@ class Repository extends Model
     protected $casts = [
         'is_private' => 'boolean',
     ];
+
+
+    public function getHumanReadableNameAttribute(): string
+    {
+        return $this->alias ?? $this->name;
+    }
 
 
     public function pullRequests(): HasMany
