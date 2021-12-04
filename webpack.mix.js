@@ -24,13 +24,5 @@ mix.babelConfig({
 
 
 /** Webpack **/
-mix.webpackConfig({
-    resolve: {
-        alias: {
-            '~': __dirname + '/resources/js'
-        }
-    },
-    output: {
-        chunkFilename: 'js/[name].js?id=[chunkhash]',
-    }
-});
+const config = require('./webpack.config')
+mix.webpackConfig(config);
