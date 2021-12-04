@@ -17,6 +17,7 @@ class RepositoryIndexRequest extends BaseIndexRequest
             ],
             'repository_is_private'     => 'nullable|boolean',
             'repository_name'           => 'nullable|string',
+            'repository_name_alias'     => 'nullable|string',
         ]);
     }
 }
