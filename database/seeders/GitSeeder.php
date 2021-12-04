@@ -9,6 +9,6 @@ class GitSeeder extends Seeder
 {
     public function run()
     {
-        Repository::factory()->count(5)->hasPullRequests(3)->create();
+        Repository::factory()->count(50)->hasPullRequests(10)->create();
     }
 }

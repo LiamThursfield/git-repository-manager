@@ -12,10 +12,10 @@ class GitRepositoryFactory extends Factory
 
     public function definition(): array
     {
-        $name = ucwords($this->faker->domainWord . ' ' . $this->faker->domainWord);
+        $name = ucwords($this->faker->catchPhrase);
 
         return [
-            'alias'         => $name,
+            'alias'         => $this->faker->boolean ? $name . ' Alias' : null,
             'git_id'        => $this->faker->numberBetween(333333333),
             'git_provider'  => $this->faker->randomElement(GitInterface::SERVICES),
             'html_url'      => $this->faker->url,

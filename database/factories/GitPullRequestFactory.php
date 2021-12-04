@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Interfaces\Git\GithubInterface;
+use App\Interfaces\Git\GitInterface;
 use App\Models\Git\PullRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,7 +29,7 @@ class GitPullRequestFactory extends Factory
             'git_id'                => $this->faker->numberBetween(333333333),
             'git_user_username'     => $git_user_username,
             'html_url'              => $this->faker->url,
-            'state'                 => $this->faker->randomElement(GithubInterface::PULL_REQUEST_STATES),
+            'state'                 => $this->faker->randomElement(GitInterface::PULL_REQUEST_STATES),
             'title'                 => $this->faker->sentence,
             'user_id'               => $user?->id,
         ];
