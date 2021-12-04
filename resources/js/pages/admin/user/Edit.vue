@@ -1,4 +1,4 @@
-` <template>
+<template>
     <form
         class="max-w-5xl mx-auto"
         autocomplete="off"
