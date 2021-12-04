@@ -16,9 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $alias
  * @property string $git_provider
+ * @property string $html_url
  * @property string $human_readable_name
  * @property bool $is_private
- * @property string $html_url
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
