@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Git;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Requests\Admin\Git\Repository\RepositoryIndexRequest;
+use App\Http\Resources\Admin\Git\RepositoryResource;
 use App\Interfaces\AppInterface;
 use App\Interfaces\Git\GitInterface;
 use App\Interfaces\PermissionInterface;
@@ -28,7 +29,7 @@ class RepositoryController extends AdminController
         )->only(['index', 'show']);
     }
 
-    public function index(RepositoryIndexRequest $request) : Response
+    public function index(RepositoryIndexRequest $request): Response
     {
         $search_options = $request->validated();
 
@@ -37,9 +38,11 @@ class RepositoryController extends AdminController
         return Inertia::render('admin/git/repository/Index', [
             'gitProviders' => GitInterface::SERVICES,
             'repositories' => function () use ($search_options) {
-                return app(RepositoryQueryTask::class)
-                    ->handle($search_options)
-                    ->paginate(AppInterface::getSearchPaginationParam($search_options));
+                return RepositoryResource::collection(
+                    app(RepositoryQueryTask::class)
+                        ->handle($search_options)
+                        ->paginate(AppInterface::getSearchPaginationParam($search_options))
+                );
             },
             'searchOptions' => $search_options,
         ]);
