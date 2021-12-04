@@ -169,9 +169,9 @@
 
     import _ from "lodash";
     import {Inertia} from "@inertiajs/inertia";
-    import InputGroup from "~/components/core/forms/InputGroup";
-    import IconCheck from "../../../../components/core/icons/IconCheck";
-    import SelectGroup from "~/components/core/forms/SelectGroup";
+    import InputGroup from "@/components/core/forms/InputGroup";
+    import IconCheck from "@/components/core/icons/IconCheck";
+    import SelectGroup from "@/components/core/forms/SelectGroup";
 
     export default {
         name: "AdminGitRepositoryIndex",
