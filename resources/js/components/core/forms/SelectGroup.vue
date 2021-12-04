@@ -79,7 +79,7 @@
                 type: String
             },
             inputAnyOptionClass: {
-                default: "",
+                default: "text-theme-base-subtle-contrast",
                 type: String
             },
             inputAnyOptionValue: {
