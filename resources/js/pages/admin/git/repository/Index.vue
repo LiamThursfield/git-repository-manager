@@ -34,13 +34,13 @@
                     <input-group
                         input-autocomplete="repository_name_search"
                         input-class="form-control form-control-short"
-                        input-id="repository_name"
-                        input-name="repository_name"
-                        input-placeholder="Name"
+                        input-id="repository_name_alias"
+                        input-name="repository_name_alias"
+                        input-placeholder="Alias/Name"
                         input-type="text"
                         :label-hidden="true"
                         label-text="Name"
-                        v-model="editableSearchOptions.repository_name"
+                        v-model="editableSearchOptions.repository_name_alias"
                     />
                 </div>
 
@@ -92,7 +92,7 @@
                         <thead>
                             <tr>
                                 <th class="indicator-column"></th>
-                                <th>Name</th>
+                                <th>Alias/Name</th>
                                 <th>Privacy</th>
                                 <th>URL</th>
                                 <th v-if="showActions"></th>
@@ -111,7 +111,11 @@
                                     />
                                 </td>
                                 <td>
-                                    {{ repository.name }}
+                                    {{ repository.human_readable_name }}
+                                    <br>
+                                    <span class="text-sm text-theme-base-subtle-contrast">
+                                        {{ repository.alias ? repository.name : '-' }}
+                                    </span>
                                 </td>
                                 <td>
                                     <component
@@ -122,6 +126,7 @@
                                 </td>
                                 <td>
                                     <a
+                                        class="hover:text-theme-primary"
                                         aria-label="Repository URL"
                                         :href="repository.html_url"
                                         rel="noopener noreferrer"
@@ -133,16 +138,20 @@
                                 <td v-if="showActions">
                                     <div class="flex flex-row items-center justify-end -mx-1">
                                         <inertia-link
-                                            v-if="userCan('repositories.view')"
+                                            v-if="userCanAny(['repositories.edit', 'repositories.view'])"
                                             class="
                                                 flex flex-row items-center inline-flex mx-1 px-2 py-1 rounded text-theme-base-subtle-contrast text-sm tracking-wide
                                                 focus:outline-none focus:ring
                                                 hover:bg-theme-info hover:text-theme-info-contrast
                                             "
-                                            :href="$route('admin.git.repositories.show', repository.id)"
+                                            :href="userCan('repositories.edit') ?
+                                                $route('admin.git.repositories.edit', repository.id) :
+                                                $route('admin.git.repositories.show', repository.id)
+                                            "
                                             title="View Repository"
                                         >
-                                            <icon-edit
+                                            <component
+                                                :is="userCan('repositories.edit') ? 'icon-edit' : 'icon-eye'"
                                                 class="w-4"
                                             />
                                         </inertia-link>
@@ -159,7 +168,7 @@
                 v-if="showPagination"
                 class="flex flex-row justify-center mt-12 px-6"
             >
-                <pagination :pagination="repositories.pagination" />
+                <pagination :pagination="repositories.meta.pagination" />
             </div>
         </div>
     </section>
@@ -192,7 +201,7 @@
                     per_page                    : 15,
                     repository_git_provider     : '',
                     repository_is_private       : '',
-                    repository_name             : '',
+                    repository_name_alias       : '',
                 },
                 isInitialised: false,
             }
@@ -206,11 +215,11 @@
                 return this.repositories.data;
             },
             showActions() {
-                return this.userCan('repositories.edit');
+                return this.userCanAny(['repositories.edit', 'repositories.view']);
             },
             showPagination() {
                 try {
-                    return this.repositories.pagination.last_page > 1;
+                    return this.repositories.meta.pagination.last_page > 1;
                 } catch (e) {
                     return false;
                 }
@@ -228,11 +237,8 @@
                         'GitLab': 'icon-brand-gitlab',
                     };
 
-                    console.log(repository.git_provider, map[repository.git_provider]);
-
                     return map[repository.git_provider] ? map[repository.git_provider] : false;
                 } catch (e) {
-                    console.log(e);
                     return false;
                 }
             },
@@ -260,7 +266,7 @@
                     per_page                    : 15,
                     repository_git_provider     : '',
                     repository_is_private       : '',
-                    repository_name             : '',
+                    repository_name_alias       : '',
                 }
 
                 try {
