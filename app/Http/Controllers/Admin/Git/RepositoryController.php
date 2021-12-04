@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Requests\Admin\Git\Repository\RepositoryIndexRequest;
 use App\Interfaces\AppInterface;
 use App\Interfaces\Git\GitInterface;
+use App\Interfaces\PermissionInterface;
+use App\Models\Git\Repository;
 use App\Tasks\Git\Repository\RepositoryQueryTask;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,6 +18,14 @@ class RepositoryController extends AdminController
     {
         parent::__construct();
         $this->addMetaTitleSection('Repositories');
+
+        $this->middleware(
+            PermissionInterface::getMiddlewareString(PermissionInterface::EDIT_REPOSITORIES)
+        )->only(['edit', 'update']);
+
+        $this->middleware(
+            PermissionInterface::getMiddlewareString(PermissionInterface::VIEW_REPOSITORIES)
+        )->only(['index', 'show']);
     }
 
     public function index(RepositoryIndexRequest $request) : Response
