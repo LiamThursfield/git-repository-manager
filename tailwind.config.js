@@ -7,7 +7,7 @@
 
 // load default theme settings
 const defaultTheme = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 
 const additionalSpacing = {
     '14' : '3.5rem',
@@ -16,10 +16,10 @@ const additionalSpacing = {
 };
 
 module.exports = {
-    purge: [
-        './resources/**/*.blade.php',
-        './resources/**/*.html',
-        './resources/**/*.vue',
+    content: [
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
     ],
     theme: {
         fontFamily: {
@@ -39,7 +39,7 @@ module.exports = {
             colors: {
                 cyan: colors.cyan,
                 gray: {
-                    ...colors.blueGray,
+                    ...colors.slate,
                     '150': '#F4F7FA',
                     '850': '#222938'
                 },
