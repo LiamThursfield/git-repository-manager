@@ -100,10 +100,10 @@
                     git: {
                         children : {
                             repositories: {
-                                activeRoutes: ["admin.git.repositories.index", "admin.git.repositories.show"],
+                                activeRoutes: ["admin.git.repositories.index", "admin.git.repositories.edit", "admin.git.repositories.show"],
                                 children: false,
                                 icon: "icon-sitemap",
-                                label: "View Repositories",
+                                label: "Repositories",
                                 requiresAllPermissions: ["repositories.view"],
                                 requiresAnyPermissions: [],
                                 route: "admin.git.repositories.index",
