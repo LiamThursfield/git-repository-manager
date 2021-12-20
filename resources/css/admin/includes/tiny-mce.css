@@ -5,12 +5,8 @@
  * This is for applying TW specific styles to Tiny MCE
  */
 
-/**
-* Disabled until issue with tailwind / tailwind typography is sorted:
-* https://github.com/tailwindlabs/tailwindcss-typography/issues/219
 .mce-content-body {
     @apply prose;
 }
- */
 
 /* purgecss end ignore */
