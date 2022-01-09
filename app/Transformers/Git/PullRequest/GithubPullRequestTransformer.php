@@ -6,6 +6,11 @@ use Illuminate\Support\Arr;
 
 class GithubPullRequestTransformer extends AbstractPullRequestTransformer
 {
+    public function getBody(): string
+    {
+        return Arr::get($this->raw_data, 'body');
+    }
+
     public function getBranchBase(): string
     {
         return Arr::get($this->raw_data, 'base.ref');

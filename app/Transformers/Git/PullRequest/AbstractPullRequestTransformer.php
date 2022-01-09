@@ -17,6 +17,7 @@ abstract class AbstractPullRequestTransformer
     public function transform(): PullRequest
     {
         return new PullRequest([
+            'body'              => $this->getBody(),
             'branch_base'       => $this->getBranchBase(),
             'branch_head'       => $this->getBranchHead(),
             'git_id'            => $this->getGitId(),

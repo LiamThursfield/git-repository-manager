@@ -20,6 +20,7 @@ class CreateGitPullRequestsTable extends Migration
                 ->constrained('git_repositories')
                 ->onDelete('cascade');
             $table->string('title');
+            $table->text('body');
             $table->string('branch_head');
             $table->string('branch_base');
             $table->string('state');

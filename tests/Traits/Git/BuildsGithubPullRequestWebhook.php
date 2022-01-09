@@ -24,6 +24,7 @@ trait BuildsGithubPullRequestWebhook
     /**
      * Default pull request values
      */
+    private string $pull_request_body       = 'A pull request body';
     private string $pull_request_base_ref   = 'main';
     private string $pull_request_head_ref   = 'feature/branch-name';
     private string $pull_request_html_url   = 'https://github.com/Username/repository-name/pull/1';
@@ -48,6 +49,7 @@ trait BuildsGithubPullRequestWebhook
         return [
             'action'        => Arr::get($data_override, 'action', $this->action),
             'pull_request'  => [
+                'body'      => Arr::get($data_override, 'pull_request.body', $this->pull_request_body),
                 'html_url'  => Arr::get($data_override, 'pull_request.html_url', $this->pull_request_html_url),
                 'id'        => Arr::get($data_override, 'pull_request.id', $this->pull_request_id),
                 'state'     => Arr::get($data_override, 'pull_request.state', $this->pull_request_state),
@@ -59,7 +61,7 @@ trait BuildsGithubPullRequestWebhook
                     'ref'   => Arr::get($data_override, 'pull_request_head.ref', $this->pull_request_head_ref),
                 ],
                 'user'      => [
-                    'login' => Arr::get($data_override, 'pull_request.title', $this->pull_request_user_login),
+                    'login' => Arr::get($data_override, 'pull_request_user.login', $this->pull_request_user_login),
                 ],
             ],
             'repository'    => [

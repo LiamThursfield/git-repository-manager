@@ -24,6 +24,7 @@ class GitPullRequestFactory extends Factory
         }
 
         return [
+            'body'                  => $this->faker->paragraph,
             'branch_base'           => $this->faker->slug,
             'branch_head'           => $this->faker->slug,
             'git_id'                => $this->faker->numberBetween(333333333),

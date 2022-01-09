@@ -27,6 +27,7 @@ class GithubPullRequestTest extends TestCase
         $pull_request = $transformer->transform();
 
         // Assert the model fields are correct
+        self::assertEquals($this->pull_request_body, $pull_request->body);
         self::assertEquals($this->pull_request_base_ref, $pull_request->branch_base);
         self::assertEquals($this->pull_request_head_ref, $pull_request->branch_head);
         self::assertEquals($this->pull_request_id, $pull_request->git_id);
@@ -59,6 +60,7 @@ class GithubPullRequestTest extends TestCase
         self::assertDatabaseHas(
             PullRequest::class,
             [
+                'body'              => $pull_request->body,
                 'branch_base'       => $pull_request->branch_base,
                 'branch_head'       => $pull_request->branch_head,
                 'git_id'            => $pull_request->git_id,
