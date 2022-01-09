@@ -37,7 +37,7 @@ class PullRequest extends Model
 
     public function repository(): BelongsTo
     {
-        return $this->belongsTo(Repository::class);
+        return $this->belongsTo(Repository::class, 'git_repository_id');
     }
 
     public function user(): BelongsTo
