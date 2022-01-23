@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CRM\ContactController;
 use App\Http\Controllers\Admin\CRM\FormController;
 use App\Http\Controllers\Admin\CRM\FormSubmissionController;
 use App\Http\Controllers\Admin\FileManagerController;
+use App\Http\Controllers\Admin\Git\PullRequestController;
 use App\Http\Controllers\Admin\Git\RepositoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -38,6 +39,7 @@ Route::group([
     'prefix' => 'git'
 ], function() {
     Route::resource('repositories', RepositoryController::class)->only(['index', 'show', 'edit', 'update']);
+    Route::resource('pull_requests', PullRequestController::class)->only(['index', 'show', 'edit', 'update']);
 });
 
 /** Fallback admin route - ensures Auth() calls work as expected in the exception handler */
