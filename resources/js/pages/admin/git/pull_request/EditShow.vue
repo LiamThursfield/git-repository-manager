@@ -51,8 +51,8 @@
                         {{ pullRequest.title }}
                     </h2>
 
-                    <p>
-                        {{ }}
+                    <p class="mt-2">
+                        {{ pullRequest.body }}
                     </p>
                 </div>
             </div>
